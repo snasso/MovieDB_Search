@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>Movie</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar">
+                <ul class="nav nav-pills">
+                    <li role="presentation" class="active">
+                        <a href='<%= referer %>'>< Back</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        
+        <div class="container">
+            <div id="movie-details">
+                <h1 class="text-center"><%= movie["Title"] %></h1>
+
+                <% include search-form.ejs %>
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-5">
+                        <img class="movie-poster" 
+                            src='https://image.tmdb.org/t/p/w370_and_h556_bestv2/<%= movie["Poster Path"] %>' />
+                    </div>
+
+                    <div class="col-xs-12 col-md-7">
+                        <table class="table">
+                            <% let movieKeys = Object.keys(movie); 
+                                for (let i = 0; i < movieKeys.length; i++) { %>
+                                    <tr>
+                                        <td><%= movieKeys[i] %></td>
+                                        <td><%= movie[movieKeys[i]] %>
+                                    </tr>
+                            <%  } %>
+                        </table>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

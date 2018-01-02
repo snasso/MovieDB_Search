@@ -1,0 +1,78 @@
+<html>
+
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar">
+                <ul class="nav nav-pills pull-right">
+                    <li role="presentation" class="active">
+                        <a href="http://localhost:8080/">Now Playing</a>
+                    </li>
+
+                    <li role="presentation" class="active">
+                        <a href="http://localhost:8080/popular">Popular</a>
+                    </li>
+
+                    <li role="presentation" class="active">
+                        <a href="http://localhost:8080/top-rated">Top Rated</a>
+                    </li>
+                    
+                    <li role="presentation" class="active">
+                        <a href="http://localhost:8080/upcoming">Upcoming</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <div class="container" style="position: relative;">
+            <h1 class="text-center">Movie Database</h1>
+
+            <% include search-form.ejs %>
+
+            <% for (let i = 0; i < movies.length; i++) { %>
+                <a class="movie-link" href='http://localhost:8080/movie/<%= movies[i]["Id"] %>'>
+                    <div class="media movie-list-item">
+                        <div class="media-left">
+                            <div class="poster-container">
+                                <img class="media-object movie-poster" src='https://image.tmdb.org/t/p/w370_and_h556_bestv2/<%= movies[i]["Poster Path"] %>'
+                                />
+                            </div>
+                        </div>
+
+                        <div class="media-body">
+                            <h4 class="media-heading">
+                                <%= movies[i]["Title"] %>
+                                    <span 
+                                    <% if (Number(movies[i][ "Vote Average"])> 7.5) { %> 
+                                        class="badge badge-green"
+                                    <% } else if (Number(movies[i]["Vote Average"]) > 5.0) { %>
+                                        class="badge badge-blue"
+                                    <% } else if (Number(movies[i]["Vote Average"]) <= 5.0) { %>
+                                        class="badge badge-red"
+                                    <% } %>
+                                    >
+                                        <%= movies[i]["Vote Average"] %>
+                                    </span>
+                            </h4>
+
+                            <div>
+                                <%= movies[i]["Overview"] %>
+                            </div>
+
+                            <div class="released-date">
+                                Released:
+                                <%= movies[i]["Release Date"] %>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            <% } %>
+        </div>
+    </body>
+</html>
